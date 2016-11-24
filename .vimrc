@@ -63,7 +63,8 @@ Plugin 'dhruvasagar/vim-table-mode'
 "Pythonmode
 Plugin 'klen/python-mode'
 
-
+"Vim-Pencil
+Plugin 'reedes/vim-pencil'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -216,4 +217,14 @@ let g:airline_detect_paste=1
 let g:airline_theme='solarized'
 let g:airline#extensions#branch#enabled = 1
 let g:airline_powerline_fonts = 1
+"}}}
+
+"Vim-Pencil settings{{{
+
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END
+
 "}}}
