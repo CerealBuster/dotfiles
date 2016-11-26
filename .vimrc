@@ -66,6 +66,10 @@ Plugin 'klen/python-mode'
 "Vim-Pencil
 Plugin 'reedes/vim-pencil'
 
+"Syntastic {{{
+Plugin 'vim-syntastic/syntastic'
+
+"}}}
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -228,3 +232,18 @@ augroup pencil
 augroup END
 
 "}}}
+"Syntastic settings{{{
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"js checker
+let g:syntastic_javascript_checkers = ['jshint']
+
+"}}}
+
