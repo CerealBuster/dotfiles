@@ -156,7 +156,12 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 "}}}
-
+"folding methods{{{
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
+"}}}
 " Centralize SWAP and Backupfiles{{{
 let $TMP=$HOME.'/.vim/SWAP/'
 set directory=$TMP
@@ -224,6 +229,9 @@ let g:airline_powerline_fonts = 1
 "}}}
 
 "Vim-Pencil settings{{{
+
+let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+let g:airline_section_x = '%{PencilMode()}'
 
 augroup pencil
   autocmd!
