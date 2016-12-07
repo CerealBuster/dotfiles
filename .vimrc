@@ -196,8 +196,9 @@ autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> :%s/\s\+$//e
 let g:pymode = 1
 let g:pymode_warnings = 1
 let g:pymode_paths = []
-let g:pymode_folding = 0
-
+let g:pymode_folding = 1
+let g:pymode_python = 'python3'
+let g:pymode_lint = 0
 syntax enable
 "}}}
 
@@ -226,17 +227,19 @@ let g:airline_detect_paste=1
 let g:airline_theme='solarized'
 let g:airline#extensions#branch#enabled = 1
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#syntastic#enabled = 1
 "}}}
 
 "Vim-Pencil settings{{{
 
-let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
-let g:airline_section_x = '%{PencilMode()}'
-
 augroup pencil
   autocmd!
+  let g:pencil#wrapModeDefault = 'hard'   " default is 'hard'
+  let g:airline_section_x = '%{PencilMode()}'
   autocmd FileType markdown,mkd call pencil#init()
   autocmd FileType text         call pencil#init()
+  setlocal spell
+  set spelllang=de_ch
 augroup END
 
 "}}}
@@ -253,5 +256,15 @@ let g:syntastic_check_on_wq = 0
 "js checker
 let g:syntastic_javascript_checkers = ['jshint']
 
+"python checker
+let g:syntastic_python_checkers = ['pylint']
 "}}}
 
+"Pandoc settings{{{
+let g:pandoc#formatting#mode = 'hA'
+"}}}
+
+"Tablemode settings{{{
+let g:table_mode_corner_corner="+"
+let g:table_mode_header_fillchar="="
+"}}}
