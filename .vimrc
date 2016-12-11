@@ -203,6 +203,9 @@ syntax enable
 "}}}
 
 "Appearance{{{
+
+"enable 256 colors 
+set t_Co=256
 set background=dark
 colorscheme solarized
 "Fontsettings for gui
