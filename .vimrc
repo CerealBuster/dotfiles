@@ -64,7 +64,7 @@ Plugin 'dhruvasagar/vim-table-mode'
 Plugin 'klen/python-mode'
 
 "Vim-Pencil
-Plugin 'reedes/vim-pencil'
+"Plugin 'reedes/vim-pencil'
 
 "Syntastic {{{
 Plugin 'vim-syntastic/syntastic'
@@ -235,15 +235,15 @@ let g:airline#extensions#syntastic#enabled = 1
 
 "Vim-Pencil settings{{{
 
-augroup pencil
-  autocmd!
-  let g:pencil#wrapModeDefault = 'hard'   " default is 'hard'
-  let g:airline_section_x = '%{PencilMode()}'
-  autocmd FileType markdown,mkd call pencil#init()
-  autocmd FileType text         call pencil#init()
-  setlocal spell
-  set spelllang=de_ch
-augroup END
+"augroup pencil
+""  autocmd!
+"  let g:pencil#wrapModeDefault = 'hard'   " default is 'hard'
+""  let g:airline_section_x = '%{PencilMode()}'
+""  autocmd FileType markdown,mkd call pencil#init()
+""  autocmd FileType text         call pencil#init()
+""  setlocal spell
+""  set spelllang=de_ch
+"augroup END
 
 "}}}
 "Syntastic settings{{{
