@@ -66,10 +66,27 @@ Plugin 'klen/python-mode'
 "Vim-Pencil
 "Plugin 'reedes/vim-pencil'
 
-"Syntastic {{{
+"vim-easytags
+Plugin 'xolox/vim-easytags'
+
+"tagbar
+Plugin 'majutsushi/tagbar'
+
+"vim-misc
+Plugin 'xolox/vim-misc'
+
+"vim-startify
+Plugin 'mhinz/vim-startify'
+
+"You Complete Me
+Plugin 'Valloric/YouCompleteMe'
+
+"YCM-Generator
+Plugin 'rdnetto/YCM-Generator'
+
+"Syntastic
 Plugin 'vim-syntastic/syntastic'
 
-"}}}
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -171,7 +188,6 @@ set backupdir=$Backup
 "let Tlist_Ctags_Cmd = $HOME.'/vimfiles/ctags.exe'
 "}}}
 
-
 "personal file settings{{{
 set ignorecase
 
@@ -208,8 +224,9 @@ syntax enable
 set t_Co=256
 set background=dark
 colorscheme solarized
-"Fontsettings for gui
+"Fontsettings for gui and remove toolbar
 if has("gui_running")
+  set guioptions-=T
   if has('gui_win32')
     set guifont=Consolas:h10:b
   else
@@ -270,4 +287,11 @@ let g:pandoc#formatting#mode = 'hA'
 "Tablemode settings{{{
 let g:table_mode_corner_corner="+"
 let g:table_mode_header_fillchar="="
+"}}}
+
+"YCM-Settings{{{
+
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_collect_identifiers_from_tags_files = 1
 "}}}
