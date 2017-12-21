@@ -90,6 +90,9 @@ Plugin 'vim-syntastic/syntastic'
 
 "vimtex
 Plugin 'lervag/vimtex'
+"slimv (all mighty)
+Plugin 'kovisoft/slimv'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -211,8 +214,11 @@ set autoindent
 "}}}
 
 "CodeSettings{{{
+
+"in lisp the ' is a single character
+au FileType lisp let b:loaded_delimitMate = 1
 "only allow trailing whitespaces to be stripped if it is a code file
-autocmd FileType c,cpp,java,php,javascript autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,java,php,javascript,lisp autocmd BufWritePre <buffer> :%s/\s\+$//e
 let g:pymode = 1
 let g:pymode_warnings = 1
 let g:pymode_paths = []
