@@ -22,6 +22,8 @@
 (use-package magit :ensure t)
 (use-package fixme-mode :ensure t)
 (use-package darktooth-theme :ensure t)
+(use-package color-theme :ensure t)
+(use-package color-theme-solarized :ensure t)
 (use-package solarized-theme :ensure t)
 (use-package powerline :ensure t)
 (use-package airline-themes :ensure t)
@@ -99,14 +101,19 @@
 ;;-----------------------------------------------
 
 ;;themening--------------------------------------
+;;(require 'color-theme-solarized)
+;;(setq solarized-termcolors 256)
+;;(set-frame-parameter nil 'background-mode 'dark)
+;;(setq solarized-broken-srgb t)
+;;(load-theme 'solarized t)
 (load-theme 'solarized-dark t)
-
 ;;default font
 ;;(when (member "hack" (font-family-list))
 ;;  (set-face-attribute 'default nil :font "hack"))
 ;;powerline
 (require 'airline-themes)
-(load-theme 'airline-solarized-alternate-gui t)
+
+(load-theme 'airline-solarized-gui t)
 
 ;;dashboard
 (require 'dashboard)
@@ -166,86 +173,15 @@
 ;;Plain lists
 (setq org-list-allow-alphabetical t)
 (setq org-agenda-files '("~/Dokumente/"))
-
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(compilation-message-face (quote default))
- '(cua-global-mark-cursor-color "#2aa198")
- '(cua-normal-cursor-color "#839496")
- '(cua-overwrite-cursor-color "#b58900")
- '(cua-read-only-cursor-color "#859900")
- '(custom-safe-themes
-   (quote
-    ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "2b8dff32b9018d88e24044eb60d8f3829bd6bbeab754e70799b78593af1c3aba" "b181ea0cc32303da7f9227361bb051bbb6c3105bb4f386ca22a06db319b08882" default)))
  '(delete-selection-mode nil)
- '(fci-rule-color "#073642")
- '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
- '(highlight-symbol-colors
-   (--map
-    (solarized-color-blend it "#002b36" 0.25)
-    (quote
-     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
- '(highlight-symbol-foreground-color "#93a1a1")
- '(highlight-tail-colors
-   (quote
-    (("#073642" . 0)
-     ("#546E00" . 20)
-     ("#00736F" . 30)
-     ("#00629D" . 50)
-     ("#7B6000" . 60)
-     ("#8B2C02" . 70)
-     ("#93115C" . 85)
-     ("#073642" . 100))))
- '(hl-bg-colors
-   (quote
-    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00")))
- '(hl-fg-colors
-   (quote
-    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
- '(magit-diff-use-overlays nil)
- '(nrepl-message-colors
-   (quote
-    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (powerline fixme-mode use-package parinfer magit evil-surround evil-numbers evil-mc auto-complete)))
- '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
- '(term-default-bg-color "#002b36")
- '(term-default-fg-color "#839496")
- '(vc-annotate-background nil)
- '(vc-annotate-background-mode nil)
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#dc322f")
-     (40 . "#ff7f00")
-     (60 . "#ffbf00")
-     (80 . "#b58900")
-     (100 . "#ffff00")
-     (120 . "#ffff00")
-     (140 . "#ffff00")
-     (160 . "#ffff00")
-     (180 . "#859900")
-     (200 . "#aaff55")
-     (220 . "#7fff7f")
-     (240 . "#55ffaa")
-     (260 . "#2affd4")
-     (280 . "#2aa198")
-     (300 . "#00ffff")
-     (320 . "#00ffff")
-     (340 . "#00ffff")
-     (360 . "#268bd2"))))
- '(vc-annotate-very-old-color nil)
- '(weechat-color-list
-   (quote
-    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
- '(xterm-color-names
-   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
- '(xterm-color-names-bright
-   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
+    (solarized-theme use-package parinfer magit fixme-mode evil-surround evil-numbers evil-mc dashboard darktooth-theme color-theme-solarized auto-complete airline-themes))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
