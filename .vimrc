@@ -80,12 +80,16 @@ Plugin 'mhinz/vim-startify'
 
 "You Complete Me
 Plugin 'Valloric/YouCompleteMe'
+ 
 
 "YCM-Generator
 Plugin 'rdnetto/YCM-Generator'
 
 "Syntastic
 Plugin 'vim-syntastic/syntastic'
+
+"vimtex
+Plugin 'lervag/vimtex'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -208,7 +212,7 @@ set autoindent
 
 "CodeSettings{{{
 "only allow trailing whitespaces to be stripped if it is a code file
-autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,java,php,javascript autocmd BufWritePre <buffer> :%s/\s\+$//e
 let g:pymode = 1
 let g:pymode_warnings = 1
 let g:pymode_paths = []
@@ -281,7 +285,11 @@ let g:syntastic_python_checkers = ['pylint']
 "}}}
 
 "Pandoc settings{{{
-let g:pandoc#formatting#mode = 'hA'
+let g:pandoc#formatting#mode = 'ha'
+setlocal spell
+set spelllang=de_ch
+let g:spellfile_URL = 'http://ftp.vim.org/vim/runtime/spell/de'
+
 "}}}
 
 "Tablemode settings{{{
@@ -290,8 +298,10 @@ let g:table_mode_header_fillchar="="
 "}}}
 
 "YCM-Settings{{{
-
+set omnifunc=syntaxcomplete#Complete
 let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
 "}}}
+
