@@ -1,0 +1,476 @@
+#+TITLE: Emacs configuration
+#+AUTHOR: Raffael Affolter
+
+* Default settings
+
+** UTF-8 Please
+
+#+BEGIN_SRC emacs-lisp
+
+(set-charset-priority 'unicode)
+(setq locale-coding-system   'utf-8)   ; pretty
+(set-terminal-coding-system  'utf-8)   ; pretty
+(set-keyboard-coding-system  'utf-8)   ; pretty
+(set-selection-coding-system 'utf-8)   ; please
+(prefer-coding-system        'utf-8)   ; with sugar on top
+(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+
+
+#+END_SRC
+
+** Garbace collection allow more than 20MB
+
+#+BEGIN_SRC emacs-lisp
+(setq gc-cons-threshold 20000000)
+
+#+END_SRC
+
+** No backup files
+#+BEGIN_SRC emacs-lisp
+
+(setq make-backup-files nil)
+
+#+END_SRC
+
+** Auto-Save in /tmp
+
+#+BEGIN_SRC emacs-lisp
+
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+#+END_SRC
+
+** Always follow symlinks
+
+#+BEGIN_SRC emacs-lisp
+(setq vc-follow-symlinks t)
+#+END_SRC
+
+** Sentences have one space after a period
+
+#+BEGIN_SRC emacs-lisp
+
+(setq sentence-end-double-space nil)
+
+#+END_SRC
+
+** Confirm before closing Emacs
+
+#+BEGIN_SRC emacs-lisp
+(setq confirm-kill-emacs 'y-or-n-p)
+
+#+END_SRC
+
+** Ask y/n instead of yes/no
+
+#+BEGIN_SRC emacs-lisp
+
+(fset 'yes-or-no-p 'y-or-n-p)
+
+#+END_SRC
+
+** Autorevert files on change
+
+#+BEGIN_SRC emacs-lisp
+
+(global-auto-revert-mode t)
+
+#+END_SRC
+
+
+** Shortcut for changing font size
+#+BEGIN_SRC emacs-lisp
+
+(define-key global-map (kbd "C-1") 'text-scale-increase)
+(define-key global-map (kbd "C-0") 'text-scale-decrease)
+
+#+END_SRC
+
+** Disable startup message
+#+BEGIN_SRC emacs-lisp
+
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
+
+#+END_SRC
+** no guit tooolbar
+
+#+BEGIN_SRC emacs-lisp
+
+(tool-bar-mode 0)
+
+#+END_SRC
+
+** Automatic line Breaks
+
+#+BEGIN_SRC emacs-lisp
+
+(add-hook 'text-mode-hook 'auto-fill-mode)
+
+#+END_SRC
+
+** Enable Narrow to region
+
+#+BEGIN_SRC emacs-lisp
+
+(put 'narrow-to-region 'disabled nil)
+
+#+END_SRC
+
+** We dont need scrollbars
+
+#+BEGIN_SRC emacs-lisp
+
+(scroll-bar-mode -1)
+
+#+END_SRC
+
+** Remeber cursor position when reopening files
+
+#+BEGIN_SRC emacs-lisp
+
+(setq save-place-file "~/.emacs.d/saveplace")
+(setq-default save-place t)
+
+#+END_SRC
+
+** no bell
+
+#+BEGIN_SRC emacs-lisp
+
+(setq visible-bell t)
+
+#+END_SRC
+
+** auto completion
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package auto-complete
+  :ensure t
+  :config (ac-config-default)
+)
+#+END_SRC
+
+
+** default font
+#+BEGIN_SRC emacs-lisp
+(when (member "hack" (font-family-list))
+  (set-face-attribute 'default nil :font "hack"))
+#+END_SRC
+
+* Evil
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package evil
+  :ensure t
+  :init (evil-mode t)
+  :config (global-set-key (kbd "M-x")'execute-extended-command)
+ )
+
+#+END_SRC
+
+* Projectile
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package projectile
+  :ensure t
+  :defer t
+  :config
+  (projectile-global-mode))
+
+#+END_SRC
+
+* Helm
+
+#+BEGIN_SRC emacs-lisp
+(use-package helm
+  :ensure t
+  :init
+  (require 'helm-config)
+  :config
+  (helm-mode 1)
+  (setq helm-autoresize-mode t)
+  (setq helm-buffer-max-length 40)
+  (global-set-key (kbd "M-x") #'helm-M-x)
+  (define-key helm-map (kbd "S-SPC") 'helm-toggle-visible-mark)
+  (define-key helm-find-files-map (kbd "C-k") 'helm-find-files-up-one-level))
+
+#+END_SRC
+
+** Helm projectile
+#+BEGIN_SRC emacs-lisp
+
+(use-package helm-projectile
+  :bind (("C-S-P" . helm-projectile-switch-project)
+         :map evil-normal-state-map
+         ("C-p" . helm-projectile))
+  :ensure t
+  :config
+  (evil-leader/set-key
+    "ps" 'helm-projectile-ag
+    "pa" 'helm-projectile-find-file-in-known-projects
+  ))
+
+#+END_SRC
+
+
+
+
+* Themening
+
+** Theme to load
+
+#+BEGIN_SRC emacs-lisp
+(use-package color-theme :ensure t)
+
+;;(load-theme 'tango-dark t)
+#+END_SRC
+
+*** ample
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package ample-theme
+  :init (progn (load-theme 'ample t t)
+               (load-theme 'ample-flat t t)
+               (load-theme 'ample-light t t)
+               (enable-theme 'ample-flat))
+  :defer t
+  :ensure t)
+
+#+END_SRC
+
+
+** Powerline
+#+BEGIN_SRC emacs-lisp
+
+(use-package powerline
+  :ensure t
+  :config (powerline-default-theme ))
+
+#+END_SRC
+
+** Airline Themes
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package airline-themes :ensure t
+  :init (setq airline-helm-colors t )
+  :config (load-theme 'airline-dark t))
+
+#+END_SRC
+
+* Dashboard
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package dashboard
+  :ensure t
+  :config (dashboard-setup-startup-hook))
+
+#+END_SRC
+
+* Org-Mode Settings
+
+** Plain lists
+
+#+BEGIN_SRC emacs-lisp
+
+  (setq org-list-allow-alphabetical t)
+
+#+END_SRC
+
+** where is my agenda
+
+#+BEGIN_SRC emacs-lisp
+
+(setq org-agenda-files '("~/Dokumente/"))
+
+#+END_SRC
+
+** Org bullets makes things look pretty
+
+  #+BEGIN_SRC emacs-lisp
+
+    (setenv "BROWSER" "chromium-browser")
+
+        (use-package org-bullets
+        :ensure t
+        :config
+        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+#+END_SRC
+
+* Programming settings
+** Defaults
+
+Line numbers
+
+#+BEGIN_SRC emacs-lisp
+
+(global-linum-mode t)
+
+#+END_SRC
+
+Tabs
+#+BEGIN_SRC emacs-lisp
+
+(setq-default tab-width t)
+
+#+END_SRC
+
+intendation cannot insert tabs
+
+#+BEGIN_SRC emacs-lisp
+
+(setq-default inent-tabs-mode nil)
+
+#+END_SRC
+Two spaces for programming languages
+
+#+BEGIN_SRC emacs-lisp
+(setq python-indent 2)
+(setq js-indent-level 2)
+#+END_SRC
+
+auto indent with return key
+#+BEGIN_SRC emacs-lisp
+(define-key global-map (kbd "RET") 'newline-and-indent)
+
+#+END_SRC
+
+No trailing white spaces except in makrdowns
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'before-save-hook '(lambda()
+                              (when (not (derived-mode-p 'markdown-mode))
+                                (delete-trailing-whitespace))))
+#+END_SRC
+
+highlight fixme todo and bug statement
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package fixme-mode
+  :ensure t
+  :config (fixme-mode t))
+
+#+END_SRC
+
+** Rainboooows
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package rainbow-delimiters
+  :ensure t
+  :config (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+)
+
+#+END_SRC
+** Paredit
+
+#+BEGIN_SRC emacs-lisp
+(use-package paredit
+  :ensure t
+  :init
+  (add-hook 'clojure-mode-hook 'enable-paredit-mode)
+  (add-hook 'cider-repl-mode-hook 'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+  (add-hook 'ielm-mode-hook 'enable-paredit-mode)
+  (add-hook 'json-mode-hook 'enable-paredit-mode))
+#+END_SRC
+
+** Parinfer
+
+#+BEGIN_SRC emacs-lisp
+(use-package parinfer
+  :ensure t
+  :bind
+  (("C-," . parinfer-toggle-mode))
+  :init
+  (progn
+    (setq parinfer-extensions
+          '(defaults       ; should be included.
+            pretty-parens  ; different paren styles for different modes.
+            evil           ; If you use Evil.
+            ;lispy          ; If you use Lispy. With this extension, you should install Lispy and do not enable lispy-mode directly.
+            paredit        ; Introduce some paredit commands.
+            smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
+            smart-yank))   ; Yank behavior depend on mode.
+    (add-hook 'clojure-mode-hook #'parinfer-mode)
+    (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
+    (add-hook 'common-lisp-mode-hook #'parinfer-mode)
+    (add-hook 'scheme-mode-hook #'parinfer-mode)
+    (add-hook 'lisp-mode-hook #'parinfer-mode)))
+
+#+END_SRC
+
+** LISP settings
+
+#+BEGIN_SRC emacs-lisp
+
+
+#+END_SRC
+
+** Clojure
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package clojure-mode
+  :ensure t
+)
+(use-package clojure-mode-extra-font-locking
+  :ensure t)
+
+#+END_SRC
+
+** Cider
+#+BEGIN_SRC emacs-lisp
+(use-package cider
+  :ensure t)
+
+#+END_SRC
+
+
+
+** SLIME
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package slime
+  :ensure t
+  :config (progn (setq inferior-lisp-program "/usr/bin/sbcl")
+          (setq slime-contribs '(slime-fancy))))
+#+END_SRC
+
+
+** Magit
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package magit
+  :ensure t
+  :config (global-set-key (kbd "C-x g") 'magit-status))
+
+#+END_SRC
+
+** flycheck
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC
