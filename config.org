@@ -320,7 +320,15 @@ Line numbers
 Tabs
 #+BEGIN_SRC emacs-lisp
 
-(setq-default tab-width t)
+(setq-default tab-width 2)
+
+#+END_SRC
+
+Use 2 spaces instead of tab.
+
+#+BEGIN_SRC emacs-lisp
+
+(setq-default tab-width 2 indent-tabs-mode nil)
 
 #+END_SRC
 
@@ -362,16 +370,6 @@ highlight fixme todo and bug statement
 
 #+END_SRC
 
-** Rainboooows
-
-#+BEGIN_SRC emacs-lisp
-
-(use-package rainbow-delimiters
-  :ensure t
-  :config (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-)
-
-#+END_SRC
 ** Paredit
 
 #+BEGIN_SRC emacs-lisp
@@ -390,25 +388,26 @@ highlight fixme todo and bug statement
 ** Parinfer
 
 #+BEGIN_SRC emacs-lisp
-(use-package parinfer
-  :ensure t
-  :bind
-  (("C-," . parinfer-toggle-mode))
-  :init
-  (progn
-    (setq parinfer-extensions
-          '(defaults       ; should be included.
-            pretty-parens  ; different paren styles for different modes.
-            evil           ; If you use Evil.
-            ;lispy          ; If you use Lispy. With this extension, you should install Lispy and do not enable lispy-mode directly.
-            paredit        ; Introduce some paredit commands.
-            smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
-            smart-yank))   ; Yank behavior depend on mode.
-    (add-hook 'clojure-mode-hook #'parinfer-mode)
-    (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
-    (add-hook 'common-lisp-mode-hook #'parinfer-mode)
-    (add-hook 'scheme-mode-hook #'parinfer-mode)
-    (add-hook 'lisp-mode-hook #'parinfer-mode)))
+
+;;(use-package parinfer
+;;  :ensure t
+;;  :bind
+;;  (("C-," . parinfer-toggle-mode))
+;;  :init
+;;  (progn
+;;    (setq parinfer-extensions
+;;          '(defaults       ; should be included.
+;;            pretty-parens  ; different paren styles for different modes.
+;;            evil           ; If you use Evil.
+;;            ;lispy          ; If you use Lispy. With this extension, you should install Lispy and do not enable lispy-mode directly.
+;;            paredit        ; Introduce some paredit commands.
+;;            smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
+;;            smart-yank))   ; Yank behavior depend on mode.
+;;    (add-hook 'clojure-mode-hook #'parinfer-mode)
+;;    (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
+;;    (add-hook 'common-lisp-mode-hook #'parinfer-mode)
+;;    (add-hook 'scheme-mode-hook #'parinfer-mode)
+;;    (add-hook 'lisp-mode-hook #'parinfer-mode)))
 
 #+END_SRC
 
@@ -446,7 +445,7 @@ highlight fixme todo and bug statement
 
 (use-package slime
   :ensure t
-  :config (progn (setq inferior-lisp-program "/usr/bin/sbcl")
+  :config (progn (setq inferior-lisp-program "/usr/bin/clisp")
           (setq slime-contribs '(slime-fancy))))
 #+END_SRC
 
@@ -471,6 +470,16 @@ highlight fixme todo and bug statement
 
 #+END_SRC
 
+
+** Rainboooows
+
 #+BEGIN_SRC emacs-lisp
 
+(use-package rainbow-delimiters
+  :ensure t
+  :init (progn
+         (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+         (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode))
+)
+(rainbow-delimiters-mode)
 #+END_SRC
