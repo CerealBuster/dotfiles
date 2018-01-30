@@ -171,6 +171,18 @@
   :config (global-set-key (kbd "M-x")'execute-extended-command)
  )
 
+(use-package evil-leader
+  :ensure t
+  :init (global-evil-leader-mode)
+  :config
+  (progn
+    (evil-leader/set-leader ",")
+    (evil-leader/set-key
+       "w" 'basic-save-buffer
+       "s" 'flyspell-buffer
+       "b" 'evil-buffer
+       "q" 'evil-quit)))
+
 #+END_SRC
 
 * Projectile
@@ -228,20 +240,20 @@
 #+BEGIN_SRC emacs-lisp
 (use-package color-theme :ensure t)
 
-;;(load-theme 'tango-dark t)
+(load-theme 'tango-dark t)
 #+END_SRC
 
 *** ample
 
 #+BEGIN_SRC emacs-lisp
 
-(use-package ample-theme
-  :init (progn (load-theme 'ample t t)
-               (load-theme 'ample-flat t t)
-               (load-theme 'ample-light t t)
-               (enable-theme 'ample-flat))
-  :defer t
-  :ensure t)
+;;(use-package ample-theme
+;;  :init (progn (load-theme 'ample t t)
+;;               (load-theme 'ample-flat t t)
+;;               (load-theme 'ample-light t t)
+;;               (enable-theme 'ample-flat))
+;;  :defer t
+;;  :ensure t)
 
 #+END_SRC
 
@@ -261,7 +273,7 @@
 
 (use-package airline-themes :ensure t
   :init (setq airline-helm-colors t )
-  :config (load-theme 'airline-dark t))
+  :config (load-theme 'airline-papercolor t))
 
 #+END_SRC
 
