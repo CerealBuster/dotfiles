@@ -318,6 +318,12 @@
 
 #+END_SRC
 
+* Latex
+#+BEGIN_SRC emacs-lisp
+(use-package tex
+  :ensure auctex)
+#+END_SRC
+
 * Programming settings
 ** Defaults
 
@@ -465,6 +471,13 @@ highlight fixme todo and bug statement
           (setq slime-contribs '(slime-fancy))))
 #+END_SRC
 
+
+** Racket
+
+#+BEGIN_SRC emacs-lisp
+(use-package racket-mode
+  :ensure t)
+#+END_SRC
 
 ** Magit
 
