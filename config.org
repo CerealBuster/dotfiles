@@ -400,7 +400,9 @@ highlight fixme todo and bug statement
   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
   (add-hook 'ielm-mode-hook 'enable-paredit-mode)
-  (add-hook 'json-mode-hook 'enable-paredit-mode))
+  (add-hook 'json-mode-hook 'enable-paredit-mode)
+  (add-hook 'racket-mode-hook 'enable-paredit-mode)
+  (add-hook 'racket-repl-mode-hook 'enable-paredit-mode))
 #+END_SRC
 
 ** Parinfer
@@ -511,4 +513,10 @@ highlight fixme todo and bug statement
          (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode))
 )
 (rainbow-delimiters-mode)
+#+END_SRC
+** Yaml
+
+#+BEGIN_SRC emacs-lisp
+(use-package yaml-mode
+  :ensure t)
 #+END_SRC
