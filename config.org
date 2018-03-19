@@ -289,6 +289,35 @@
 
 * Org-Mode Settings
 
+** KOMA-SCRIPT
+we want koma script
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load "ox-latex"
+  (add-to-list 'org-latex-classes
+               '("koma-article" "\\documentclass{scrartcl}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+(with-eval-after-load "ox-latex"
+
+(add-to-list 'org-latex-classes  '("koma-letter"
+     "\\documentclass[11pt]{scrlttr2}\n
+      \\usepackage[utf8]{inputenc}\n
+      \\usepackage[T1]{fontenc}\n
+      \\usepackage{xcolor}"
+
+     ("\\section{%s}" . "\\section*{%s}")
+     ("\\subsection{%s}" . "\\subsection*{%s}")
+     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+     ("\\paragraph{%s}" . "\\paragraph*{%s}")
+     ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+#+END_SRC
+
 ** Plain lists
 
 #+BEGIN_SRC emacs-lisp
