@@ -167,9 +167,18 @@
 
 (use-package evil
   :ensure t
-  :init (evil-mode t)
-  :config (global-set-key (kbd "M-x")'execute-extended-command)
- )
+  :init
+  (setq evil-want-integration nil)
+  :config(progn
+    (global-set-key (kbd "M-x")'execute-extended-command)
+    (evil-mode 1)))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+
 
 (use-package evil-leader
   :ensure t
@@ -183,6 +192,8 @@
        "b" 'evil-buffer
        "q" 'evil-quit)))
 
+(use-package evil-magit
+  :ensure t)
 #+END_SRC
 
 * Projectile
@@ -232,6 +243,12 @@
 
 
 
+* Whichkey
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :ensure t
+  :config (which-key-mode) )
+#+END_SRC
 
 * Themening
 
@@ -347,6 +364,12 @@ we want koma script
 
 #+END_SRC
 
+* Latex
+#+BEGIN_SRC emacs-lisp
+(use-package tex
+  :ensure auctex)
+#+END_SRC
+
 * Programming settings
 ** Defaults
 
@@ -423,7 +446,9 @@ highlight fixme todo and bug statement
   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
   (add-hook 'ielm-mode-hook 'enable-paredit-mode)
-  (add-hook 'json-mode-hook 'enable-paredit-mode))
+  (add-hook 'json-mode-hook 'enable-paredit-mode)
+  (add-hook 'racket-mode-hook 'enable-paredit-mode)
+  (add-hook 'racket-repl-mode-hook 'enable-paredit-mode))
 #+END_SRC
 
 ** Parinfer
@@ -495,6 +520,13 @@ highlight fixme todo and bug statement
 #+END_SRC
 
 
+** Racket
+
+#+BEGIN_SRC emacs-lisp
+(use-package racket-mode
+  :ensure t)
+#+END_SRC
+
 ** Magit
 
 #+BEGIN_SRC emacs-lisp
@@ -527,4 +559,10 @@ highlight fixme todo and bug statement
          (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode))
 )
 (rainbow-delimiters-mode)
+#+END_SRC
+** Yaml
+
+#+BEGIN_SRC emacs-lisp
+(use-package yaml-mode
+  :ensure t)
 #+END_SRC
