@@ -304,6 +304,19 @@
 
 #+END_SRC
 
+* Plantuml
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package plantuml-mode
+  :ensure t
+  :config (progn
+            (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+            (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))))
+
+#+END_SRC
+
+
 * Org-Mode Settings
 
 ** KOMA-SCRIPT
@@ -440,6 +453,7 @@ highlight fixme todo and bug statement
 (use-package paredit
   :ensure t
   :init
+  (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
   (add-hook 'clojure-mode-hook 'enable-paredit-mode)
   (add-hook 'cider-repl-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-mode-hook 'enable-paredit-mode)
@@ -447,8 +461,9 @@ highlight fixme todo and bug statement
   (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
   (add-hook 'ielm-mode-hook 'enable-paredit-mode)
   (add-hook 'json-mode-hook 'enable-paredit-mode)
-  (add-hook 'racket-mode-hook 'enable-paredit-mode)
-  (add-hook 'racket-repl-mode-hook 'enable-paredit-mode))
+  (add-hook 'scheme-mode-hook 'enable-paredit-mode)
+  (add-hook 'geiser-repl-mode-hook 'enable-paredit-mode)
+  (add-hook 'slime-repl-mode-hook 'enable-paredit-mode))
 #+END_SRC
 
 ** Parinfer
@@ -520,10 +535,12 @@ highlight fixme todo and bug statement
 #+END_SRC
 
 
-** Racket
+** Geiser
+
+We want a good racket workspace
 
 #+BEGIN_SRC emacs-lisp
-(use-package racket-mode
+(use-package geiser
   :ensure t)
 #+END_SRC
 
