@@ -348,6 +348,15 @@ we want koma script
 
 #+END_SRC
 
+** eurpecv-class
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load "ox-latex"
+  (add-to-list 'org-latex-classes
+               '("europecv" "\\documentclass[utf8,a4Paper, 10pt, helvetica,narrow,flagWB, booktabs,totpages,german]{europevc}")))
+
+#+END_SRC
+
 ** Plain lists
 
 #+BEGIN_SRC emacs-lisp
