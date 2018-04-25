@@ -194,6 +194,10 @@
 
 (use-package evil-magit
   :ensure t)
+
+(use-package evil-mu4e
+  :ensure t)
+
 #+END_SRC
 
 * Projectile
@@ -316,7 +320,64 @@
 
 #+END_SRC
 
+* mu43
+#+BEGIN_SRC emacs-lisp
+(setq auth-sources '("~/.authinfo.gpg"))
 
+(use-package mu4e
+  :commands mu4e
+  :config
+    (setq mu4e-maildir "~/Maildir")
+    (setq mu4e-get-mail-command "offlineimap")
+    (setq mu4e-update-interval 300)
+    (setq mu4e-attachement-dir "~/Downloads")
+    (setq user-full-name "Raffael Affolter")
+    (setq mail-user-agent 'mu4e-user-agent)
+    (setq mu4e-view-show-adresses t)
+    (setq message-send-mail-function 'smtpmail-send-it)
+    (setq message-kill-buffer-on-exit t)
+    (setq mu4e-context-policy 'pick-first)
+    (setq mu4e-contexts
+       (list (make-mu4e-context
+               :name "ZHAW"
+               :enter-func (lambda() (mu4e-message "Switch to ZHAW"))
+               :match-func (lambda(msg)
+                             (when msg
+                                (s-prefix? "/ZHAW/" (mu4e-message-field msg :maildir))))
+              :vars '((user-mail-address . "affolraf@students.zhaw.ch")
+                      (mu4e-sent-folder . "/ZHAW/Gesendete Elemente")
+                      (mu4e-drafts-folder . "/ZHAW/Drafts")
+                      (mu4e-trash-folder . "/ZHAW/Trash")
+                      (smtpmail-default-smtp-server . "smtps.zhaw.ch")
+                      (smtpmail-smtp-server . "smtps.zhaw.ch")
+                      (smtpmail-local-domain . "zhaw.ch")
+                      (smtpmail-smtp-user . "affolraf@students.zhaw.ch")
+                      (smtpmail-stream-type . starttls)
+                      (smtpmail-smtp-service . 587)))
+              (make-mu4e-context
+               :name "Outlook"
+               :enter-func (lambda() (mu4e-message "Switch to Outlook"))
+               :match-func (lambda(msg)
+                             (when msg
+                                (s-prefix? "/Outlook/" (mu4e-message-field msg :maildir))))
+              :vars '((user-mail-address . "raffael.affolter@outlook.com")
+                      (mu4e-sent-folder . "/Outlook/Sent")
+                      (mu4e-drafts-folder . "/Outlook/Drafts")
+                      (mu4e-trash-folder . "/Outlook/Trash")
+                      (smtpmail-default-smtp-server . "smtp.office365.com")
+                      (smtpmail-smtp-server . "smtp.office365.com")
+                      (smtpmail-local-domain . "outlook.com")
+                      (smtpmail-smtp-user . "raffael.affolter@hotmail.com")
+                      (smtpmail-stream-type . starttls)
+                      (smtpmail-smtp-service . 587)
+                      (mu4e-sent-messages-behavior . delete)
+                      (mu4e-sent-messages-behavior . delete)))))
+
+    (add-hook 'message-mode-hook 'turn-on-orgtbl)
+    (add-hook 'message-mode-hook 'turn-on-orgstruct++)
+    (add-hook 'mu4e-compose-mode-hook 'flyspell-mode)
+    (add-hook 'mu4e-compose-mode-hook (lambda() (ispell-change-dictionary "deutsch"))))
+#+END_SRC
 * Org-Mode Settings
 
 ** KOMA-SCRIPT
@@ -384,6 +445,11 @@ we want koma script
         :config
         (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
+#+END_SRC
+** Org mu4e
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-mu4e)
 #+END_SRC
 
 * Latex
