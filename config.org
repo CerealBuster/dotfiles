@@ -1,6 +1,20 @@
 #+TITLE: Emacs configuration
 #+AUTHOR: Raffael Affolter
 
+
+* auto-package-update
+
+we want to auto update our packages
+
+#+BEGIN_SRC emacs-lisp
+(use-package auto-package-update
+  :ensure t
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
+#+END_SRC
+
 * Default settings
 
 ** UTF-8 Please
@@ -169,9 +183,9 @@
   :ensure t
   :init
   (setq evil-want-integration nil)
-  :config(progn
-    (global-set-key (kbd "M-x")'execute-extended-command)
-    (evil-mode 1)))
+  :config
+  (global-set-key (kbd "M-x")'execute-extended-command)
+  (evil-mode 1))
 
 (use-package evil-collection
   :after evil
@@ -379,6 +393,13 @@
     (add-hook 'mu4e-compose-mode-hook (lambda() (ispell-change-dictionary "deutsch"))))
 #+END_SRC
 * Org-Mode Settings
+** Enable native intendations in sourc blocks
+
+#+BEGIN_SRC emacs-lisp
+
+(setq org-src-tab-acts-natively t)
+
+#+END_SRC
 
 ** KOMA-SCRIPT
 we want koma script
@@ -657,4 +678,15 @@ We want a good racket workspace
 #+BEGIN_SRC emacs-lisp
 (use-package yaml-mode
   :ensure t)
+#+END_SRC
+* EXWM
+
+#+BEGIN_SRC emacs-lisp
+;(use-package exwm
+;  :ensure t
+;  :config
+;  (require 'exwm-config)
+;  (require 'exwm-systemtray)
+;  (exwm-config-default)
+;  (exwm-systemtray-enable))
 #+END_SRC
