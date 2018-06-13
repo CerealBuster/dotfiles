@@ -1,6 +1,50 @@
 #+TITLE: Emacs configuration
 #+AUTHOR: Raffael Affolter
 
+* EXWM
+
+#+BEGIN_SRC emacs-lisp
+    (use-package exwm
+      :ensure t
+      :config
+      (require 'exwm-config)
+   ;   (exwm-config-default)
+  (setq exwm-workspace-number 4)
+      (require 'exwm-systemtray)
+      (exwm-systemtray-enable)
+      (setq exwm-systemtray-height 16)
+(setq exwm-input-global-keys
+      `(
+        ;; Bind "s-r" to exit char-mode and fullscreen mode.
+        ([?\s-r] . exwm-reset)
+        ;; Bind "s-w" to switch workspace interactively.
+        ([?\s-w] . exwm-workspace-switch)
+        ;; Bind "s-0" to "s-9" to switch to a workspace by its index.
+        ,@(mapcar (lambda (i)
+                    `(,(kbd (format "s-%d" i)) .
+                      (lambda ()
+                        (interactive)
+                        (exwm-workspace-switch-create ,i))))
+                  (number-sequence 0 9))
+        ;; Bind "s-&" to launch applications ('M-&' also works if the output
+        ;; buffer does not bother you).
+        ([?\s-&] . (lambda (command)
+		     (interactive (list (read-shell-command "$ ")))
+		     (start-process-shell-command command nil command)))
+        ;; Bind "s-<f2>" to "slock", a simple X display locker.
+        ([s-f2] . (lambda ()
+		    (interactive)
+		    (start-process "" nil "/usr/bin/slock")))))
+)
+#+END_SRC
+
+* desktop-environment
+
+#+BEGIN_SRC emacs-lisp
+  (use-package desktop-environment
+    :ensure t
+    :config (desktop-environment-mode))
+#+END_SRC
 
 * auto-package-update
 
@@ -679,14 +723,10 @@ We want a good racket workspace
 (use-package yaml-mode
   :ensure t)
 #+END_SRC
-* EXWM
-
+* Golden Ratio
 #+BEGIN_SRC emacs-lisp
-;(use-package exwm
-;  :ensure t
-;  :config
-;  (require 'exwm-config)
-;  (require 'exwm-systemtray)
-;  (exwm-config-default)
-;  (exwm-systemtray-enable))
+  (use-package golden-ratio
+    :ensure t
+    :init (setq golden-ratio-auto-scale t)
+    :config (golden-ratio-mode 1))
 #+END_SRC
