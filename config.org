@@ -475,8 +475,10 @@ we want koma script
 
 * Latex
 #+BEGIN_SRC emacs-lisp
-(use-package tex
-  :ensure auctex)
+  (use-package auctex
+    :defer t
+    :ensure t)
+
 #+END_SRC
 
 * Programming settings
@@ -626,7 +628,7 @@ highlight fixme todo and bug statement
 
 (use-package slime
   :ensure t
-  :config (progn (setq inferior-lisp-program "/usr/bin/clisp")
+  :config (progn (setq inferior-lisp-program "/usr/bin/clisp -K full")
           (setq slime-contribs '(slime-fancy))))
 #+END_SRC
 
