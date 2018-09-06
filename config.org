@@ -429,7 +429,25 @@ we want to auto update our packages
                       (smtpmail-stream-type . starttls)
                       (smtpmail-smtp-service . 587)
                       (mu4e-sent-messages-behavior . delete)
-                      (mu4e-sent-messages-behavior . delete)))))
+                      (mu4e-sent-messages-behavior . delete)))
+(make-mu4e-context
+               :name "UZH"
+               :enter-func (lambda() (mu4e-message "Switch to UZH"))
+               :match-func (lambda(msg)
+                             (when msg
+                                (s-prefix? "/UZH/" (mu4e-message-field msg :maildir))))
+              :vars '((user-mail-address . "raffael.affolter@uzh.ch")
+                      (mu4e-sent-folder . "/UZH/Gesendet")
+                      (mu4e-drafts-folder . "/UZH/Drafts")
+                      (mu4e-trash-folder . "/UZH/Trash")
+                      (smtpmail-default-smtp-server . "smtp.uzh.ch")
+                      (smtpmail-smtp-server . "smtp.uzh.ch")
+                      (smtpmail-local-domain . "uzh.ch")
+                      (smtpmail-smtp-user . "raffael.affolter@uzh.ch")
+                      (smtpmail-stream-type . starttls)
+                      (smtpmail-smtp-service . 587)))
+
+))
 
     (add-hook 'message-mode-hook 'turn-on-orgtbl)
     (add-hook 'message-mode-hook 'turn-on-orgstruct++)
@@ -449,28 +467,28 @@ we want to auto update our packages
 we want koma script
 
 #+BEGIN_SRC emacs-lisp
-(with-eval-after-load "ox-latex"
-  (add-to-list 'org-latex-classes
-               '("koma-article" "\\documentclass{scrartcl}"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+  (with-eval-after-load "ox-latex"
+    (add-to-list 'org-latex-classes
+                 '("koma-article" "\\documentclass{scrartcl}"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
-(with-eval-after-load "ox-latex"
+  (with-eval-after-load "ox-latex"
 
-(add-to-list 'org-latex-classes  '("koma-letter"
-     "\\documentclass[11pt]{scrlttr2}\n
-      \\usepackage[utf8]{inputenc}\n
-      \\usepackage[T1]{fontenc}\n
-      \\usepackage{xcolor}"
+  (add-to-list 'org-latex-classes  '("koma-letter"
+       "\\documentclass[11pt]{scrlttr2}\n
+        \\usepackage[utf8]{inputenc}\n
+        \\usepackage[T1]{fontenc}\n
+        \\usepackage{xcolor}"
 
-     ("\\section{%s}" . "\\section*{%s}")
-     ("\\subsection{%s}" . "\\subsection*{%s}")
-     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-     ("\\paragraph{%s}" . "\\paragraph*{%s}")
-     ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+       ("\\section{%s}" . "\\section*{%s}")
+       ("\\subsection{%s}" . "\\subsection*{%s}")
+       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+       ("\\paragraph{%s}" . "\\paragraph*{%s}")
+       ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 #+END_SRC
 
@@ -515,6 +533,13 @@ we want koma script
 
 #+BEGIN_SRC emacs-lisp
 (use-package org-mu4e)
+#+END_SRC
+
+** enable Markdown export
+
+#+BEGIN_SRC emacs-lisp
+    (with-eval-after-load 'org
+      (require 'ox-md nil t))
 #+END_SRC
 
 * Latex
