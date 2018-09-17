@@ -378,7 +378,7 @@ we want to auto update our packages
 
 #+END_SRC
 
-* mu43
+* mu4e
 #+BEGIN_SRC emacs-lisp
 (setq auth-sources '("~/.authinfo.gpg"))
 
@@ -436,6 +436,14 @@ we want to auto update our packages
     (add-hook 'mu4e-compose-mode-hook 'flyspell-mode)
     (add-hook 'mu4e-compose-mode-hook (lambda() (ispell-change-dictionary "deutsch"))))
 #+END_SRC
+* flyspell
+we want flyspell to be enabled by default in text org and latex files
+
+#+BEGIN_SRC emacs-lisp
+(setq ispell-dictionary "german")
+(add-hook 'text-mode-hook 'flyspell-mode)
+#+END_SRC
+
 * Org-Mode Settings
 ** Enable native intendations in sourc blocks
 
